@@ -83,8 +83,14 @@
 <body>
 
     <!-- Botón para cambiar modo -->
-    <div class="toggle-dark" onclick="toggleDark()">🌓</div>
-
+     <style>
+.toggle-dark {
+  font-size: 32px;   /* aquí lo agrandas */
+  cursor: pointer;
+  user-select: none;
+}
+</style>
+    <div class="toggle-dark" id="toggleIcon" onclick="toggleDark()">◐</div>
     <div class="container">
         <h1>Esteganografía</h1>
 
