@@ -1,27 +1,29 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vida Facil - Esteganografía</title>
-    <link rel="stylesheet" href="style.css">
+<!DOCTYPE html> <!-- Indica documento HTML5 -->
+<html lang="es"> <!-- Idioma español -->
+<head> <!-- Contiene configuración, estilos, título -->
+
+    <meta charset="UTF-8"> <!-- Permite acentos -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Adaptación a móviles -->
+
+    <title>Vida Facil - Esteganografía</title> <!-- Título de la pestaña -->
+    <link rel="stylesheet" href="style.css"> <!-- Carga tu archivo CSS externo -->
 
     <style>
-        body {
+        body { /* Estilos generales del cuerpo */
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
             transition: background 0.3s, color 0.3s;
-            background: #ffffff;
+            background: #ffffff; /* modo claro */
             color: #000000;
         }
 
-        body.dark {
+        body.dark { /* Modo oscuro activado */
             background: #121212;
             color: #f5f5f5;
         }
 
-        .container {
+        .container { /* Caja central */
             width: 90%;
             max-width: 600px;
             margin: 60px auto;
@@ -30,27 +32,27 @@
             border-radius: 10px;
         }
 
-        body.dark .container {
+        body.dark .container { /* Caja oscura */
             background: rgba(0,0,0,0.4);
         }
 
         h1 { text-align: center; }
 
-        textarea {
+        textarea { /* Cuadros de texto */
             width: 100%;
             height: 120px;
             padding: 10px;
             border-radius: 8px;
             border: none;
-            background: #f2f2f2;
+            background: #ffffff;
         }
 
-        body.dark textarea {
+        body.dark textarea { /* textarea en modo oscuro */
             background: #1e1e1e;
             color: white;
         }
 
-        button {
+        button { /* Estilo general de botones */
             width: 100%;
             margin-top: 15px;
             padding: 12px;
@@ -58,18 +60,22 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            background: #0070ff;
-            color: white;
+            background: #ffb0db;
+            color: rgb(0, 0, 0);
         }
 
-        .toggle-dark {
+        body.dark button { /* Botón en oscuro */
+            background: #5a5259;
+            color: rgb(255, 255, 255);
+        }
+
+        .toggle-dark { /* Botón flotante para modo oscuro */
             position: fixed;
-            top: 0;
-            right: 0;
+            top: 0px;       /* un poco separado del borde superior */
+            right: 2px;     /* un poco separado del borde derecho */
             margin: 0;
             padding: 0;
-            line-height: 0;
-            font-size: 52px;
+            font-size: 52px;line-height: 1; /* evita que se corte el símbolo */
             cursor: pointer;
             user-select: none;
         }
@@ -78,40 +84,49 @@
 
 <body>
 
-    <div class="toggle-dark" id="toggleIcon" onclick="toggleDark()">◐</div>
+    <div class="toggle-dark" id="toggleIcon" onclick="toggleDark()">◐</div> 
+    <!-- Botón que cambia entre modo claro/oscuro -->
 
-    <div class="container">
+    <div class="container"> <!-- Caja principal -->
         <h1>Esteganografía</h1>
 
-        <textarea id="texto" placeholder="Escribe el texto que quieres ocultar..."></textarea>
+        <textarea id="texto" placeholder="Escribe el texto que quieres ocultar..."></textarea> 
+        <!-- Texto a ocultar -->
 
-        <button onclick="generar()">Generar Esteganografía</button>
+        <button onclick="generar()">Generar Esteganografía</button> 
+        <!-- Botón que activa el proceso -->
 
         <h3>Resultado:</h3>
-        <textarea id="resultado" readonly></textarea>
+        <textarea id="resultado" readonly></textarea> 
+        <!-- Resultado con caracteres invisibles -->
     </div>
 
     <script>
-        function toggleDark() {
-            document.body.classList.toggle("dark");
+        function toggleDark() { 
+            document.body.classList.toggle("dark"); // Activa/desactiva modo oscuro
         }
 
-        function generar() {
-            let t = document.getElementById("texto").value;
+        function generar() { 
+            let t = document.getElementById("texto").value; // Obtiene el texto del usuario
 
-            if (!t.trim()) {
+            if (!t.trim()) { // Si está vacío, borra el resultado
                 document.getElementById("resultado").value = "";
                 return;
             }
 
             let oculto = "";
-            for (let c of t) {
-                oculto += c.charCodeAt(0).toString(2).padStart(8, "0")
-                    .replace(/0/g, "\u200B")
-                    .replace(/1/g, "\u200C");
+
+            for (let c of t) { // Recorre cada letra del texto
+
+                oculto += c.charCodeAt(0) // Convierte la letra a número ASCII
+                    .toString(2)           // Convierte a binario
+                    .padStart(8, "0")      // Asegura 8 bits
+                    .replace(/0/g, "\u200B") // 0 = U+200B (carácter invisible)  ← / para que lo oculte
+                    .replace(/1/g, "\u200C"); // 1 = U+200C (otro invisible)      ← / para que lo oculte
             }
 
-            document.getElementById("resultado").value = oculto;
+            document.getElementById("resultado").value = oculto; 
+            // Pone el texto oculto en el cuadro final
         }
     </script>
 
