@@ -1,0 +1,29 @@
+#toggleDark {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    width: 0px;
+    height: 0px;
+    background: #000;
+    border-radius: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 45px;
+    cursor: pointer;
+    z-index: 99999;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: 0.2s;
+}
+
+/* modo oscuro activado */
+body.dark #toggleDark {
+    background: white;
+    color: black;
+}
+
+body.dark {
+    background: #121212 !important;
+    color: #eee !important;
+}

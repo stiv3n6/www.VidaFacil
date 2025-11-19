@@ -22,7 +22,6 @@
             background: #121212;
             color: #f5f5f5;
         }
-
         .container { /* Caja central */
             width: 90%;
             max-width: 600px;
@@ -31,13 +30,10 @@
             padding: 20px;
             border-radius: 10px;
         }
-
         body.dark .container { /* Caja oscura */
             background: rgba(0,0,0,0.4);
         }
-
         h1 { text-align: center; }
-
         textarea { /* Cuadros de texto */
             width: 100%;
             height: 120px;
@@ -46,12 +42,10 @@
             border: none;
             background: #ffffff;
         }
-
         body.dark textarea { /* textarea en modo oscuro */
             background: #1e1e1e;
             color: white;
         }
-
         button { /* Estilo general de botones */
             width: 100%;
             margin-top: 15px;
@@ -63,16 +57,14 @@
             background: #ffb0db;
             color: rgb(0, 0, 0);
         }
-
         body.dark button { /* Botón en oscuro */
             background: #5a5259;
             color: rgb(255, 255, 255);
         }
-
         .toggle-dark { /* Botón flotante para modo oscuro */
             position: fixed;
             top: 0px;       /* un poco separado del borde superior */
-            right: 2px;     /* un poco separado del borde derecho */
+            left: 2px;     /* un poco separado del borde isquierdo */
             margin: 0;
             padding: 0;
             font-size: 52px;line-height: 1; /* evita que se corte el símbolo */
@@ -81,54 +73,42 @@
         }
     </style>
 </head>
-
 <body>
 
-    <div class="toggle-dark" id="toggleIcon" onclick="toggleDark()">◐</div> 
-    <!-- Botón que cambia entre modo claro/oscuro -->
 
+    <!-- Botón que cambia entre modo claro/oscuro -->
     <div class="container"> <!-- Caja principal -->
         <h1>Esteganografía</h1>
-
         <textarea id="texto" placeholder="Escribe el texto que quieres ocultar..."></textarea> 
         <!-- Texto a ocultar -->
-
         <button onclick="generar()">Generar Esteganografía</button> 
         <!-- Botón que activa el proceso -->
-
         <h3>Resultado:</h3>
         <textarea id="resultado" readonly></textarea> 
         <!-- Resultado con caracteres invisibles -->
     </div>
 
     <script>
-        function toggleDark() { 
-            document.body.classList.toggle("dark"); // Activa/desactiva modo oscuro
-        }
-
+       
         function generar() { 
             let t = document.getElementById("texto").value; // Obtiene el texto del usuario
-
             if (!t.trim()) { // Si está vacío, borra el resultado
                 document.getElementById("resultado").value = "";
                 return;
             }
-
             let oculto = "";
-
             for (let c of t) { // Recorre cada letra del texto
-
                 oculto += c.charCodeAt(0) // Convierte la letra a número ASCII
                     .toString(2)           // Convierte a binario
                     .padStart(8, "0")      // Asegura 8 bits
                     .replace(/0/g, "\u200B") // 0 = U+200B (carácter invisible)  ← / para que lo oculte
                     .replace(/1/g, "\u200C"); // 1 = U+200C (otro invisible)      ← / para que lo oculte
             }
-
             document.getElementById("resultado").value = oculto; 
             // Pone el texto oculto en el cuadro final
         }
     </script>
-
+    <link rel="stylesheet" href="../assets/css/darkmode.css">
+<script src="../assets/js/darkmode.js"></script>
 </body>
 </html>
