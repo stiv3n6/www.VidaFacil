@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <title>Vida Facil - Esteganografía</title>
+
+    <!-- ESTILOS GLOBALES -->
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/noscript.css">
+    <link rel="stylesheet" href="../../assets/css/darkmode.css">
+
+    <style>
+        /* Ajustes solo para esta herramienta */
+        .tool-box {
+            width: 90%;
+            max-width: 900px;
+            margin: 5em auto;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        body.dark .tool-box {
+            background: rgba(0,0,0,0.4) !important;
+        }
+
+        textarea {
+            width: 100%;
+            height: 140px;
+            padding: 15px;
+            border-radius: 8px;
+            border: none;
+            background: #ffffff;
+        }
+
+        body.dark textarea {
+            background: #1e1e1e;
+            color: white;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #ffb0db;
+            color: black;
+        }
+
+        body.dark button {
+            background: #5a5259;
+            color: black;
+        }
+    </style>
+</head>
+
+<body class="landing is-preload">
+
+    <!-- CONTENEDOR GLOBAL -->
+    <div id="page-wrapper">
+
+        <!-- MENÚ GLOBAL -->
+        <header id="header" class="alt">
+            <h1><a href="../../index.html">Virtual Services & support</a></h1>
+            <nav id="nav">
+                <ul>
+                    <li class="special">
+                        <a href="#menu" class="menuToggle"><span>Inicio</span></a>
+                        <div id="menu">
+                            <ul>
+                                <li><a href="../../index.html">Home</a></li>
+                                <li><a href="../esteganografía/esteganografía.html">Esteganografía</a></li>
+                                <li><a href="../plantillas/plantillas.html">Plantillas</a></li>
+                                <li><a href="#">Sign Up</a></li>
+                                <li><a href="#">Log In</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- CONTENIDO -->
+        <section id="main">
+            <div class="tool-box">
+                <h1 style="text-align:center;">Esteganografía</h1>
+
+                <textarea id="texto" placeholder="Escribe el texto que quieres ocultar..."></textarea>
+
+                <button onclick="generar()">Generar Esteganografía</button>
+
+                <h3>Resultado:</h3>
+                <textarea id="resultado" readonly></textarea>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- SCRIPTS GLOBALES -->
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/js/jquery.scrollex.min.js"></script>
+    <script src="../../assets/js/jquery.scrolly.min.js"></script>
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+
+    <!-- MODO OSCURO GLOBAL -->
+    <script src="../../assets/js/darkmode.js"></script>
+
+    <!-- SCRIPT DE ESTEGANOGRAFÍA -->
+    <script>
+        function generar() {
+            let t = document.getElementById("texto").value;
+            if (!t.trim()) {
+                document.getElementById("resultado").value = "";
+                return;
+            }
+            let oculto = "";
+            for (let c of t) {
+                oculto += c.charCodeAt(0)
+                    .toString(2)
+                    .padStart(8, "0")
+                    .replace(/0/g, "\u200B")
+                    .replace(/1/g, "\u200C");
+            }
+            document.getElementById("resultado").value = oculto;
+        }
+    </script>
+
+</body>
+</html>
+

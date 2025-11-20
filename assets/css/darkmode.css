@@ -27,3 +27,30 @@ body.dark {
     background: #ffffff !important;
     color: #000000 !important;
 }
+/* Estilo global para modo oscuro */
+body.dark, 
+body.dark #page-wrapper {
+    background-color: #0d0d0d !important;
+}
+
+/* Estilos oscuros para el contenedor de Esteganografía */
+body.dark .container,
+body.dark .content,
+body.dark .panel {
+    background-color: #1a1a1a !important;
+    color: #fff !important;
+}
+body.dark #toggleDark {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #fff;
+}
+
+#toggleDark {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #000;
+}
+body.dark #toggleDark {
+    filter: drop-shadow(0 0 4px #ffffff);
+}
